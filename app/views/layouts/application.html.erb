@@ -3,67 +3,57 @@
 
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title><%= content_for(:share_title).present? ? content_for(:share_title) + ' | ' : '' %> <%= CITY_NAME %> Help With
-    COVID 19 - a clearing house for projects and volunteers that want to help with the COVID-19 crisis
-    in <%= CITY_NAME %>.</title>
+  <title><%= content_for(:share_title).present? ? content_for(:share_title)+' | ' : '' %> <%= CITY_NAME %> Help With COVID 19 - a clearing house for projects and volunteers that want to help with the COVID-19 crisis in <%= CITY_NAME %>.</title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
   <%= render 'layouts/head_content' %>
 
-  <%= stylesheet_pack_tag 'stylesheets', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.0.1/dist/alpine.js" defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
 </head>
 
-<body class="flex flex-col min-h-screen h-full bg-gray-100">
+<body class="flex flex-col min-h-screen h-full antialiased <%= 'bg-gray-100' if request.original_fullpath != root_path %>">
+<div class="flex-1">
+  <div class="pb-10">
+    <%= render partial: 'layouts/nav' %>
+  </div>
 
-<div class="flex-1 bg-gray-100">
-  <%= render partial: 'layouts/nav' %>
-
-  <div class="py-10">
-    <main class="flex-grow">
-      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+  <main class="flex-grow">
+    <% if flash.present? %>
+      <div class="container">
         <% flash.each do |type, msg| %>
           <div class="mb-8 <%= alert_container_class_for_flash_type type %>" role="alert">
             <span class="block sm:inline"><%= msg %></span>
           </div>
         <% end %>
-
-        <%= yield %>
       </div>
-    </main>
-  </div>
+    <% end %>
+    <%= yield %>
+  </main>
 </div>
 
 <footer class="w-full border-t border-gray-200 px-5 py-5">
   <div class="text-center text-gray-500 text-sm">
-    <%= link_to "About Us", about_path, class: 'text-' + @primary_color + '-500' %>
-    | <%= link_to "Disclaimer", disclaimer_path, class: 'text-' + @primary_color + '-500' %>
-    | <%= link_to "Risks", risks_path, class: 'text-' + @primary_color + '-500' %>
-    | <%= link_to "Safety Training", training_path, class: 'text-' + @primary_color + '-500' %>
-    | <%= mail_to AFFILIATE_EMAIL, nil, target: '_blank', class: 'text-' + @primary_color + '-500' %>
-    <br>
-    Visit <%= link_to 'HelpWithCovid.com', 'https://helpwithcovid.com/', target: '_blank', class: 'text-' + @primary_color + '-500'%>
-    for more COVID-19 volunteer opportunities beyond <%= CITY_NAME %>!
+    <%= link_to "About Us", about_path, class: 'text-' + @primary_color + '-500' %> | <%= link_to "Disclaimer", disclaimer_path, class: 'text-' + @primary_color + '-500' %> | <%= link_to "Risks", risks_path, class: 'text-' + @primary_color + '-500' %> | <%= link_to "Safety Training", training_path, class: 'text-' + @primary_color + '-500' %> | <%= mail_to HWC_EMAIL, nil, target: '_blank', class: 'text-' + @primary_color + '-500' %>
+    <br> Visit <%= link_to 'HelpWithCovid.com', 'https://helpwithcovid.com/', target: '_blank', class:'text-' + @primary_color + '-500' %> for more COVID-19 volunteer opportunities beyond <%= CITY_NAME %>!
   </div>
   <% if Rails.env == 'production' %>
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-166686272-1"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162750776-1"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
 
       function gtag() {
         dataLayer.push(arguments);
       }
-
       gtag('js', new Date());
 
-      gtag('config', 'UA-166686272-1');
+      gtag('config', 'UA-162750776-1');
     </script>
-
   <% end %>
 </footer>
 </body>

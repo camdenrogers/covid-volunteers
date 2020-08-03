@@ -159,7 +159,7 @@ class ProjectsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def project_params
-      params.fetch(:project, {}).permit(:name, :organization, :level_of_urgency, :level_of_exposure, :description, :participants, :looking_for, :contact, :location, :start_date, :end_date, :compensation, :background_screening_required, :progress, :docs_and_demo, :number_of_volunteers, :was_helpful, :exit_comments, :visible, :skill_list => [], :project_type_list => [], :vol_list => [])
+      params.fetch(:project, {}).permit(:name, :organization, :organization_mission, :organization_registered, :level_of_urgency, :level_of_exposure, :description, :participants, :looking_for, :contact, :location, :start_date, :end_date, :end_date_recurring, :compensation, :background_screening_required, :progress, :docs_and_demo, :number_of_volunteers, :was_helpful, :exit_comments, :visible, :skill_list => [], :project_type_list => [], :vol_list => [])
     end
 
     def ensure_owner_or_admin
@@ -172,10 +172,13 @@ class ProjectsController < ApplicationController
     def set_projects_query
       applied_skills = (params[:skills] or '').split(',')
       applied_project_types = (params[:project_types] or '').split(',')
+      applied_project_locations = (params[:location] or '').split(',')
 
       @projects = Project
       @projects = @projects.tagged_with(applied_skills) if applied_skills.length > 0
       @projects = @projects.tagged_with(applied_project_types) if applied_project_types.length > 0
+      @projects = @projects.where("location LIKE ?", "%" + applied_project_locations[0] + "%") if applied_project_locations.length == 1
+      @projects = @projects.where(location: applied_project_locations) if applied_project_locations.length > 1
 
       if params[:query].present?
         @projects = @projects.search(params[:query]).left_joins(:volunteers).reorder(nil).group(:id)

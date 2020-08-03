@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'projects#index'
+  root 'home#index'
 
   get '/about', to: 'home#about', as: 'about'
   get '/disclaimer', to: 'home#disclaimer', as: 'disclaimer'
@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   get '/reports', to: "reports#index"
 
-  devise_for :users, controllers: { registrations: 'users/registrations', sessions: 'users/sessions'}
+  devise_for :users, controllers: { registrations: 'users/registrations' }
   devise_scope :user do
     get '/users/p/:page' => 'users/registrations#index', as: 'users_with_pagination'
     get 'users', to: 'users/registrations#index', as: 'volunteers'

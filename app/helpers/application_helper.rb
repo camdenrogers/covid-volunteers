@@ -1,4 +1,9 @@
 module ApplicationHelper
+  def section_name(name = '')
+    "<div class='text-lg font-bold'>#{name}</div>".html_safe
+  end
+
+
   def nav_link_active_class(variant = 'DESKTOP')
     case variant
     when 'DESKTOP'
@@ -164,5 +169,9 @@ module ApplicationHelper
     path = path + "?#{new_params.to_query}" if new_params.present?
 
     "<option value='#{path}' #{'selected' if active}>#{title}</option>".html_safe
+  end
+
+  def list_cards(&block)
+    "<div class='w-full px-4 sm:px-0 space-y-bottom-4 sm:grid grid-cols-2 lg:grid-cols-3 sm:gap-6 grid-auto-row-1fr'>#{capture(&block)}</div>".html_safe
   end
 end
