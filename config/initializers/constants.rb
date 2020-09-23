@@ -35,6 +35,7 @@ CITY_NAME = 'Athens'
 STATE_NAME = 'Georgia'
 ALL_LOCATIONS = [ "#{CITY_NAME} (on site)", "Other #{STATE_NAME} locales (on site)", REMOTE_LOCATION ]
 DOMAIN_NAME = 'AthensHelpWithCovid.com'
+FULL_DOMAIN_NAME = 'http://athenshelpwithcovid.com/'
 AFFILIATE_EMAIL = 'info@athenshelpwithcovid.com'
 PRIMARY_COLOR = 'red'
 PROJECTS_SUBHEADER = "This is a #{CITY_NAME}-wide partnership platform, where #{CITY_NAME} residents can volunteer (in-person or remotely) and local non-profits and government can post volunteer needs. Let us unite and fight the pandemic together!"
