@@ -38,11 +38,11 @@
 -->
 <div class="relative">
   <div class="flex h-full items-center">
-    <button class="block h-8 w-8 ml-4 rounded-full overflow-hidden border-2 border-gray-200 focus:outline-none focus:border-<%=PRIMARY_COLOR%>-700">
-      <img src="/images/default_profile_picture.jpg" class="h-full w-full object-cover">
+    <button class="block h-8 w-8 ml-4 rounded-full overflow-hidden border-2 border-gray-200 focus:outline-none" onclick="myFunction()">
+      <img src="/images/default_profile_picture.jpg" class="dropbtn h-full w-full object-cover">
     </button>
   </div>
-  <div class="border-l-2 border-r-2 border-gray-200 bg-white rounded-xl py-2 shadow-xl">
+  <div class="invisible border-l-2 border-r-2 border-gray-200 bg-white rounded-xl py-2 shadow-xl" id="myDropdown">
     <%= link_to volunteered_projects_path, class: "#{volunteered_projects_nav_link_class(variant)}" do %>
       Opportunities You've Volunteered For
     <% end %>
@@ -66,5 +66,27 @@
     <% end %>
   </div>
   </div>
+<script>
+  function myFunction() {
+    var myDropdown = document.getElementById("myDropdown");
+    if (myDropdown.classList.contains('invisible')) {
+      myDropdown.classList.remove("invisible");
+    }
+    else{
+      myDropdown.classList.toggle("invisible");
+    }
+  }
 
+  window.onclick = function(e) {
+    var clicked = e.target;
+    console.log(clicked)
+    if (!clicked.classList.contains('dropbtn')) {
+      var myDropdown = document.getElementById("myDropdown");
+      if (!myDropdown.classList.contains('invisible')) {
+        myDropdown.classList.toggle("invisible");
+        console.log('here')
+      }
+    }
+  }
 
+</script>
